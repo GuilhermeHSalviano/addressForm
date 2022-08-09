@@ -56,11 +56,15 @@ export default defineComponent({
 			fetch(`https://ws.apicep.com/cep/${this.cep}.json`)
 			.then(response => response.json())
 			.then(address => {
-				this.street = address.address
-				this.neighborhood = address.district
-				this.city = address.city
-				this.state = address.state
+				if(address.status == 200){
+					this.street = address.address
+					this.neighborhood = address.district
+					this.city = address.city
+					this.state = address.state
+				} else{alert(address.message)}
+				
 			})
+			.catch(error => console.log('A requisição falhou. Erro: ' + error))
 		},
 		sendCompleteAddress(): void{
 			let address = [this.street, this.number, this.street, this.neighborhood, this.state]
