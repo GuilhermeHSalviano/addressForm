@@ -3,10 +3,10 @@
     <h1 class="display-4 text-center">Cadastro de endereço</h1>
     <form action="" class="form--container flex-column">
       <div class="form-floating">
-        <input type="text" placeholder="Digte aqui seu CEP" class="form-control" id="cep">
+        <input type="number" placeholder="Digte aqui seu CEP" class="form-control" id="cep" v-model="cep">
         <label for="cep">CEP:</label>
       </div>
-      <button class="btn btn-primary">Pesquisar CEP</button>
+      <button class="btn btn-primary" @click.prevent="searchFor_CEP">Pesquisar CEP</button>
        <div class="form-floating">
         <input type="text" placeholder="Rua/Logradouro" class="form-control" id="street">
         <label for="street">Rua/Logradouro:</label>
@@ -36,8 +36,9 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue"
 
-export default{
+export default defineComponent({
 	data(){
 		return{
 			cep: Number,
@@ -48,8 +49,15 @@ export default{
 			city: String,
 			state: String
 		}
+	},
+	methods:{
+		searchFor_CEP() {
+			fetch(`https://ws.apicep.com/cep/${this.cep}.json`)
+			.then(response => response.json())
+			.then(address => console.log(address))
+		}
 	}
-}
+})
 </script>
 
 <style lang="scss">
