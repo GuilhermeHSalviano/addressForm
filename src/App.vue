@@ -68,7 +68,6 @@ export default defineComponent({
 		},
 		sendCompleteAddress(): void{
 			let address = [this.street, this.number, this.street, this.neighborhood, this.state]
-			console.log(this.number)
 			let isAddressFormIncomplete = address.some((element) => element.length == 0)
 			isAddressFormIncomplete == true? alert('O endereço não está completo!') : alert("Endereço cadastrado!")
 			
